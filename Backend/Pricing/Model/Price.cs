@@ -10,7 +10,6 @@ namespace Backend.Model
         string ProductCode { get; set; }
     }
 
-
     public class Pack
     {
         [JsonPropertyName("amount")]
@@ -23,11 +22,12 @@ namespace Backend.Model
     {
         [JsonPropertyName("productCode")]
         public string ProductCode { get; set; }
+        [JsonPropertyName("amount")]
+        public double Amount { get; set; }
 
         [JsonPropertyName("pack")]
         public Pack Pack { get; set; }
 
-        [JsonPropertyName("amount")]
-        public double Amount { get; set; }
+ 
     }
 }

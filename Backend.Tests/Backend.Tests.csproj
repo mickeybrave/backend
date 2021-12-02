@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj" />
-    <ProjectReference Include="..\LandlordStudio.Recruitment.Backend\Backend.csproj" />
   </ItemGroup>
 
 </Project>

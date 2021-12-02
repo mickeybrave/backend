@@ -1,9 +1,7 @@
-﻿using Backend.DAL;
-using Backend.Model;
+﻿using Backend.Model;
 using Backend.Pricing.BL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -11,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class PricesController : ControllerBase
@@ -26,40 +25,51 @@ namespace Backend.Controllers
             this._calculationService = calculationService;
         }
         // GET: api/<PricesController>
-        [HttpGet()]
-        public async Task<IEnumerable<Price>> Get()
+        [HttpGet]
+        public async Task<IActionResult> GetTodoItems()
         {
-            return await _calculationService.GetAlPrices();
+            var results = await _calculationService.GetAllAsync();
+            return Ok(results);
         }
 
 
-        [HttpGet("Output")]
-        public async Task<IEnumerable<Price>> GetOutput()
-        {
-            return await _calculationService.GetAlPrices();
-        }
+        //[HttpGet("Output")]
+        //public async Task<IEnumerable<Price>> GetOutput()
+        //{
+        //    return await _calculationService.GetAlPrices();
+        //}
 
         // GET api/<PricesController>/5
-        [HttpGet("{id}")]
-        public async Task<Price> Get(string id)
+
+        [HttpGet("{code}")]
+        public async Task<IActionResult> Get(string code)
         {
-            return await _calculationService.GePriceTask(id);
+            var result = await _calculationService.GetItemAsync(code);
+
+            if (result.ComplexResult.ResultType == ResultType.NotFound)
+            {
+                return NotFound(result.ComplexResult.Message);
+            }
+            return Ok(result.Result);
         }
+
+
+
 
         [Route("/error")]
         public IActionResult Error() => Problem();
 
-        [HttpPost]
-        public async Task<ActionResult<Price>> PostPrices(Price Price)
-        {
-            //if (Price == null || Price.AmountDollars > ConstThreashold)
-            //{
-            //    return StatusCode(500, new ErrorData { Code = 500, Message = $"Client Id = {Price.ProductCode} does not have sufficient funds." }.ToString());
-            //}
-            //await _dataRepository.UpdateTask(Price);
+        //[HttpPost]
+        //public async Task<ActionResult<Price>> PostCalculateProduct(string productCode)
+        //{
+        //    //if (Price == null || Price.AmountDollars > ConstThreashold)
+        //    //{
+        //    //    return StatusCode(500, new ErrorData { Code = 500, Message = $"Client Id = {Price.ProductCode} does not have sufficient funds." }.ToString());
+        //    //}
+        //    //await _dataRepository.UpdateTask(Price);
 
-            return CreatedAtAction(nameof(Get), new { id = Price.ProductCode }, Price);
-        }
+        //    return CreatedAtAction(nameof(Get), new { id = Price.ProductCode }, Price);
+        //}
 
         // PUT api/<PricesController>/5
         [HttpPut("{id}")]

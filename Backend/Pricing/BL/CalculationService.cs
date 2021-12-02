@@ -7,10 +7,37 @@ using System.Threading.Tasks;
 
 namespace Backend.Pricing.BL
 {
+    public class ComplexResult
+    {
+        public string Message { get; set; }
+        public ResultType ResultType { get; set; }
+    }
+    public enum ResultType
+    {
+        OK,
+        BadRequest,
+        NotFound,
+        NoContent,
+        UnknownError
+    }
+    public class DataResult<T>
+    {
+        public T Result { get; private set; }
+        public ComplexResult ComplexResult { get; private set; }
+
+        public DataResult(T result, ComplexResult complexResult)
+        {
+            Result = result;
+            ComplexResult = complexResult;
+        }
+    }
+
     public interface ICalculationService
     {
-        Task<IEnumerable<Price>> GetAlPrices();
-        Task<Price> GePriceTask(string code);
+
+        Task<DataResult<IEnumerable<Price>>> GetAllAsync();
+        Task<DataResult<Price>> GetItemAsync(string code);
+
     }
     public class CalculationService : ICalculationService
     {
@@ -21,14 +48,37 @@ namespace Backend.Pricing.BL
             _dataRepository = dataRepository;
         }
 
-        public Task<IEnumerable<Price>> GetAlPrices()
+        public async Task<DataResult<Price>> GetItemAsync(string code)
         {
-            return _dataRepository.GetAllTask();
+            try
+            {
+                var res = await _dataRepository.GetTask(code);
+
+                if (res == null)
+                {
+                    return new DataResult<Price>(null, new ComplexResult { Message = $"Id={code} was not found in the system", ResultType = ResultType.NotFound });
+                }
+
+
+                return new DataResult<Price>(res, new ComplexResult { Message = null, ResultType = ResultType.OK });
+            }
+            catch (Exception ex)
+            {
+                return new DataResult<Price>(null, new ComplexResult { Message = ex.Message, ResultType = ResultType.UnknownError });
+            }
         }
 
-        public Task<Price> GePriceTask(string code)
+        public async Task<DataResult<IEnumerable<Price>>> GetAllAsync()
         {
-            return _dataRepository.GetTask(code);
+            try
+            {
+                var res = await _dataRepository.GetAllTask();
+                return new DataResult<IEnumerable<Price>>(res, new ComplexResult { Message = null, ResultType = ResultType.OK });
+            }
+            catch (Exception ex)
+            {
+                return new DataResult<IEnumerable<Price>>(null, new ComplexResult { Message = ex.Message, ResultType = ResultType.UnknownError });
+            }
         }
     }
 }
