@@ -55,13 +55,13 @@ namespace Backend.DAL
             using (StreamReader r = new StreamReader(_filePath))
             {
                 string json = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<List<T>>(json).FirstOrDefault(f => f.ProductCode == code);
+                return JsonConvert.DeserializeObject<List<T>>(json).FirstOrDefault(f => f.ProductCode.ToLower() == code.ToLower());
             }
         }
 
-        public Task<T> GetTask(string id)
+        public Task<T> GetTask(string code)
         {
-            return Task.Run(() => this.Get(id));
+            return Task.Run(() => this.Get(code));
         }
 
 

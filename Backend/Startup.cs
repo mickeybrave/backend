@@ -1,5 +1,6 @@
 using Backend.DAL;
 using Backend.Model;
+using Backend.Pricing.BL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,7 @@ namespace Backend
             services.AddControllers();
             services.AddScoped(typeof(IDataRepository<Price>), typeof(DataRepository<Price>));
             services.AddScoped(typeof(IDataUpdater<Price>), typeof(PriceUpdater<Price>));
+            services.AddScoped(typeof(ICalculationService), typeof(CalculationService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

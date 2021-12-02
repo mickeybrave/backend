@@ -1,5 +1,6 @@
 ﻿using Backend.DAL;
 using Backend.Model;
+using Backend.Pricing.BL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -15,30 +16,34 @@ namespace Backend.Controllers
     public class PricesController : ControllerBase
     {
         private const int ConstThreashold = 1000;
-  
+
         //IDataRepository<Price> _PriceRepository;
         private readonly IConfiguration _config;
-        private readonly IDataRepository<Price> _dataRepository;
+        private readonly ICalculationService _calculationService;
 
-        public PricesController(IDataRepository<Price> dataRepository)
+        public PricesController(ICalculationService calculationService)
         {
-
-            //PriceUpdater<Price> PriceDataUpdater = new PriceUpdater<Price>();
-            //  _PriceRepository = new DataRepository<Price>(dataSourceJsonPath, PriceDataUpdater);
-            _dataRepository = dataRepository;
+            this._calculationService = calculationService;
         }
         // GET: api/<PricesController>
-        [HttpGet]
-        public IEnumerable<Price> Get()
+        [HttpGet()]
+        public async Task<IEnumerable<Price>> Get()
         {
-            return _dataRepository.GetAll();
+            return await _calculationService.GetAlPrices();
+        }
+
+
+        [HttpGet("Output")]
+        public async Task<IEnumerable<Price>> GetOutput()
+        {
+            return await _calculationService.GetAlPrices();
         }
 
         // GET api/<PricesController>/5
         [HttpGet("{id}")]
-        public Price Get(string id)
+        public async Task<Price> Get(string id)
         {
-            return _dataRepository.Get(id);
+            return await _calculationService.GePriceTask(id);
         }
 
         [Route("/error")]
