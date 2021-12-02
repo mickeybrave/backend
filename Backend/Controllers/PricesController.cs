@@ -16,8 +16,6 @@ namespace Backend.Controllers
     {
         private const int ConstThreashold = 1000;
 
-        //IDataRepository<Price> _PriceRepository;
-        private readonly IConfiguration _config;
         private readonly ICalculationService _calculationService;
 
         public PricesController(ICalculationService calculationService)
@@ -26,25 +24,21 @@ namespace Backend.Controllers
         }
         // GET: api/<PricesController>
         [HttpGet]
-        public async Task<IActionResult> GetTodoItems()
+        public async Task<IActionResult> GetAllPrices()
         {
-            var results = await _calculationService.GetAllAsync();
+            var results = await _calculationService.GetAllPricesAsync();
             return Ok(results);
         }
 
 
-        //[HttpGet("Output")]
-        //public async Task<IEnumerable<Price>> GetOutput()
-        //{
-        //    return await _calculationService.GetAlPrices();
-        //}
+
 
         // GET api/<PricesController>/5
 
         [HttpGet("{code}")]
-        public async Task<IActionResult> Get(string code)
+        public async Task<IActionResult> GetPrice(string code)
         {
-            var result = await _calculationService.GetItemAsync(code);
+            var result = await _calculationService.GetPriceAsync(code);
 
             if (result.ComplexResult.ResultType == ResultType.NotFound)
             {
@@ -56,20 +50,56 @@ namespace Backend.Controllers
 
 
 
+        //[HttpGet("Calculate")]
+        //public async Task<double> Calculate(string[] codes)
+        //{
+        //    return await _calculationService.GetAlPrices();
+        //}
+
+
+
+
+        [HttpGet("{result}/GetResult")]
+        public IActionResult GetResult(string result)
+        {
+            return Ok("Calculation result: " + result);
+        }
+
         [Route("/error")]
         public IActionResult Error() => Problem();
 
-        //[HttpPost]
-        //public async Task<ActionResult<Price>> PostCalculateProduct(string productCode)
-        //{
-        //    //if (Price == null || Price.AmountDollars > ConstThreashold)
-        //    //{
-        //    //    return StatusCode(500, new ErrorData { Code = 500, Message = $"Client Id = {Price.ProductCode} does not have sufficient funds." }.ToString());
-        //    //}
-        //    //await _dataRepository.UpdateTask(Price);
 
-        //    return CreatedAtAction(nameof(Get), new { id = Price.ProductCode }, Price);
+        [HttpPost]
+        public async Task<IActionResult> PostCalculateProduct([FromBody] string code)
+        {
+
+            var serviceResult = await _calculationService.CalculatePrice(code);
+
+
+            switch (serviceResult.ComplexResult.ResultType)
+            {
+                case ResultType.OK:
+                    return RedirectToAction("GetResult", new { result = serviceResult.Result });
+
+                case ResultType.BadRequest:
+                case ResultType.UnknownError:
+                    return BadRequest(serviceResult.ComplexResult.Message);
+                case ResultType.NotFound:
+                    return NotFound(serviceResult.ComplexResult.Message);
+                case ResultType.NoContent:
+                default:
+                    return NoContent();
+            }
+
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> PostCalculateProduct([FromBody] string[] code)
+        //{
+        //    return CreatedAtAction(nameof(GetPrice), code);
         //}
+
+
 
         // PUT api/<PricesController>/5
         [HttpPut("{id}")]

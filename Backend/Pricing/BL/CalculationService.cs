@@ -35,8 +35,10 @@ namespace Backend.Pricing.BL
     public interface ICalculationService
     {
 
-        Task<DataResult<IEnumerable<Price>>> GetAllAsync();
-        Task<DataResult<Price>> GetItemAsync(string code);
+        Task<DataResult<IEnumerable<Price>>> GetAllPricesAsync();
+        Task<DataResult<Price>> GetPriceAsync(string code);
+        Task<DataResult<double>> CalculatePrice(string[] code);
+        Task<DataResult<double>> CalculatePrice(string code);
 
     }
     public class CalculationService : ICalculationService
@@ -48,7 +50,7 @@ namespace Backend.Pricing.BL
             _dataRepository = dataRepository;
         }
 
-        public async Task<DataResult<Price>> GetItemAsync(string code)
+        public async Task<DataResult<Price>> GetPriceAsync(string code)
         {
             try
             {
@@ -68,7 +70,7 @@ namespace Backend.Pricing.BL
             }
         }
 
-        public async Task<DataResult<IEnumerable<Price>>> GetAllAsync()
+        public async Task<DataResult<IEnumerable<Price>>> GetAllPricesAsync()
         {
             try
             {
@@ -79,6 +81,38 @@ namespace Backend.Pricing.BL
             {
                 return new DataResult<IEnumerable<Price>>(null, new ComplexResult { Message = ex.Message, ResultType = ResultType.UnknownError });
             }
+        }
+
+
+        public async Task<DataResult<double>> CalculatePrice(string code)
+        {
+            try
+            {
+
+                var res = await _dataRepository.GetAllTask();
+
+                return new DataResult<double>(100, new ComplexResult { Message = null, ResultType = ResultType.OK });
+            }
+            catch (Exception ex)
+            {
+                return new DataResult<double>(0, new ComplexResult { Message = ex.Message, ResultType = ResultType.UnknownError });
+            }
+
+        }
+
+        public async Task<DataResult<double>> CalculatePrice(string[] code)
+        {
+            try
+            {
+                var res = await _dataRepository.GetAllTask();
+
+                return new DataResult<double>(100, new ComplexResult { Message = null, ResultType = ResultType.OK });
+            }
+            catch (Exception ex)
+            {
+                return new DataResult<double>(0, new ComplexResult { Message = ex.Message, ResultType = ResultType.UnknownError });
+            }
+
         }
     }
 }
