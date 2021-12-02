@@ -8,7 +8,7 @@ namespace Backend.DAL
         public void UpdateDataObject(T objectToUpdate, T newObject)
         {
             objectToUpdate.ProductCode = newObject.ProductCode; ;
-            objectToUpdate.EachItemPrice = newObject.EachItemPrice; ;
+            objectToUpdate.Amount = newObject.Amount; ;
             objectToUpdate.Pack = newObject.Pack; ;
 
         }

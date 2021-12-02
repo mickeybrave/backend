@@ -1,8 +1,10 @@
 ﻿
 using Backend.Model;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -15,14 +17,17 @@ namespace Backend.DAL
         public const string ConstDefaultDataPath = "Pricing/DAL/Prices.json";
         private readonly string _filePath;
         private readonly IDataUpdater<T> _dataUpdater;
-
-        public DataRepository(string filePath, IDataUpdater<T> dataUpdater)
+        private IConfiguration _config;
+        private const string ConstDataPathConfig = "DataPath";
+        public DataRepository(IConfiguration config, IDataUpdater<T> dataUpdater)
         {
-            if (string.IsNullOrEmpty(filePath))
+            _config = config;
+            var dataSourceJsonPath = _config[ConstDataPathConfig];
+            if (string.IsNullOrEmpty(dataSourceJsonPath))
             {
-                throw new ArgumentNullException(nameof(filePath));
+                throw new ArgumentNullException(nameof(dataSourceJsonPath));
             }
-            this._filePath = filePath;
+            this._filePath = dataSourceJsonPath;
             this._dataUpdater = dataUpdater;
         }
         public DataRepository(IDataUpdater<T> dataUpdater)

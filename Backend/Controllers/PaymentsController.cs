@@ -15,28 +15,30 @@ namespace Backend.Controllers
     public class PricesController : ControllerBase
     {
         private const int ConstThreashold = 1000;
-        private const string ConstDataPathConfig = "DataPath";
-        IDataRepository<Price> _PriceRepository;
+  
+        //IDataRepository<Price> _PriceRepository;
         private readonly IConfiguration _config;
-        public PricesController(IConfiguration config)
+        private readonly IDataRepository<Price> _dataRepository;
+
+        public PricesController(IDataRepository<Price> dataRepository)
         {
-            _config = config;
-            var dataSourceJsonPath = _config[ConstDataPathConfig];
-            PriceUpdater<Price> PriceDataUpdater = new PriceUpdater<Price>();
-            _PriceRepository = new DataRepository<Price>(dataSourceJsonPath, PriceDataUpdater);
+
+            //PriceUpdater<Price> PriceDataUpdater = new PriceUpdater<Price>();
+            //  _PriceRepository = new DataRepository<Price>(dataSourceJsonPath, PriceDataUpdater);
+            _dataRepository = dataRepository;
         }
         // GET: api/<PricesController>
         [HttpGet]
         public IEnumerable<Price> Get()
         {
-            return _PriceRepository.GetAll();
+            return _dataRepository.GetAll();
         }
 
         // GET api/<PricesController>/5
         [HttpGet("{id}")]
         public Price Get(string id)
         {
-            return _PriceRepository.Get(id);
+            return _dataRepository.Get(id);
         }
 
         [Route("/error")]
@@ -49,7 +51,7 @@ namespace Backend.Controllers
             //{
             //    return StatusCode(500, new ErrorData { Code = 500, Message = $"Client Id = {Price.ProductCode} does not have sufficient funds." }.ToString());
             //}
-            //await _PriceRepository.UpdateTask(Price);
+            //await _dataRepository.UpdateTask(Price);
 
             return CreatedAtAction(nameof(Get), new { id = Price.ProductCode }, Price);
         }
