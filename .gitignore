@@ -4,6 +4,8 @@
 
 /Backend/obj/Debug
 /Backend/obj/Debug/net5.0/Backend.csproj.AssemblyReference.cache
+/Backend.Tests/obj/Debug/net5.0/Backend.Tests.csproj.AssemblyReference.cache
+/backend/.vs/BackEnd/v16/.suo
 /build/
 *.suo
 *.user
