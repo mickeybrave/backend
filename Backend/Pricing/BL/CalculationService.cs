@@ -117,6 +117,15 @@ namespace Backend.Pricing.BL
                 foreach (var scannedProduct in productScans)
                 {
                     finalPriceResult = await this.CalculatePrice(scannedProduct);
+
+                    if (finalPriceResult.ComplexResult.ResultType != ResultType.OK)
+                    {
+                        return new DataResult<double>(0, new ComplexResult
+                        {
+                            Message = $"Product with code = {scannedProduct.CodesSingle} does not exists in the system. Please, remove it from the sequence and try again.",
+                            ResultType = ResultType.BadRequest
+                        });
+                    }
                 }
 
                 return new DataResult<double>(finalPriceResult.Result, new ComplexResult { Message = null, ResultType = ResultType.OK });
@@ -196,6 +205,6 @@ namespace Backend.Pricing.BL
               }).Sum(s => s.Amount);
         }
 
-     
+
     }
 }

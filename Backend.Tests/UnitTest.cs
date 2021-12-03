@@ -70,6 +70,82 @@ namespace Backend.Tests
 
         }
 
+        [Fact]
+        public async void CalculationService_Sequence_InValid_Product_found_test()
+        {
+            //Arrange
+            PriceUpdater<Price> PriceDataUpdater = new PriceUpdater<Price>();
+            DataRepository<Price> rep = new DataRepository<Price>(PriceDataUpdater);
+
+            Mock<IDataRepository<Price>> repoMock = new Mock<IDataRepository<Price>>();
+
+            repoMock.Setup(m => m.GetAllTask()).Returns(Task.Run(() => _listOfPrices));
+
+            var calculationService = new CalculationService(repoMock.Object);
+
+            //Act
+            var finalPriceResult = await calculationService.CalculatePrice("ABCX");
+
+
+
+            //Asssert
+            Assert.True(finalPriceResult.Result == 0);
+            Assert.True(finalPriceResult.ComplexResult.ResultType == ResultType.BadRequest);
+            Assert.True(finalPriceResult.ComplexResult.ResultType != ResultType.OK);
+            Assert.Contains("Product with code = X does not exists in the system. Please, remove it from the sequence and try again.", finalPriceResult.ComplexResult.Message);
+        }
+
+
+        [Fact]
+        public async void CalculationService_No_Prices_found_test()
+        {
+            //Arrange
+            PriceUpdater<Price> PriceDataUpdater = new PriceUpdater<Price>();
+            DataRepository<Price> rep = new DataRepository<Price>(PriceDataUpdater);
+
+            Mock<IDataRepository<Price>> repoMock = new Mock<IDataRepository<Price>>();
+
+            repoMock.Setup(m => m.GetAllTask()).Returns(Task.Run(() => new List<Price>() as IEnumerable<Price>));
+
+            var calculationService = new CalculationService(repoMock.Object);
+
+            //Act
+            var finalPriceResult = await calculationService.CalculatePrice(new ProductScan { });
+
+
+
+            //Asssert
+            Assert.True(finalPriceResult.Result == 0);
+            Assert.True(finalPriceResult.ComplexResult.ResultType == ResultType.NotFound);
+            Assert.True(finalPriceResult.ComplexResult.ResultType != ResultType.OK);
+            Assert.Contains("pricese data was found in the system", finalPriceResult.ComplexResult.Message);
+        }
+
+        [Fact]
+        public async void CalculationService_No_Product_in_system_test()
+        {
+            //Arrange
+            PriceUpdater<Price> PriceDataUpdater = new PriceUpdater<Price>();
+            DataRepository<Price> rep = new DataRepository<Price>(PriceDataUpdater);
+
+            Mock<IDataRepository<Price>> repoMock = new Mock<IDataRepository<Price>>();
+
+            repoMock.Setup(m => m.GetAllTask()).Returns(Task.Run(() => _listOfPrices));
+
+            var calculationService = new CalculationService(repoMock.Object);
+
+            //Act
+            var finalPriceResult = await calculationService.CalculatePrice(new ProductScan { CodesSingle = "X" });
+
+
+
+            //Asssert
+            Assert.True(finalPriceResult.Result == 0);
+            Assert.True(finalPriceResult.ComplexResult.ResultType == ResultType.NotFound);
+            Assert.True(finalPriceResult.ComplexResult.ResultType != ResultType.OK);
+            Assert.Contains("Product with code = X was found in the system", finalPriceResult.ComplexResult.Message);
+        }
+
         //[Fact()]
         [Theory]
         [InlineData("ABCDABA", 13.25)]
