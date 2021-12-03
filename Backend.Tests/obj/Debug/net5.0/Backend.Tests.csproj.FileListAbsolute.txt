@@ -226,3 +226,5 @@ C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend.Tests\bin\Debu
 C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend.Tests\bin\Debug\net5.0\Backend.pdb
 C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend.Tests\obj\Debug\net5.0\Backend.Tests.csproj.CopyComplete
 C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend.Tests\obj\Debug\net5.0\Backend.Tests.genruntimeconfig.cache
+C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend.Tests\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend.Tests\bin\Debug\net5.0\Moq.dll

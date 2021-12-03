@@ -16,6 +16,8 @@ namespace Backend.Model
         public double Amount { get; set; }
         [JsonPropertyName("count")]
         public int Count { get; set; }
+
+        public bool Exists { get { return Count != 0 && Amount != 0; } }
     }
 
     public class Price : IDataObject
@@ -28,6 +30,6 @@ namespace Backend.Model
         [JsonPropertyName("pack")]
         public Pack Pack { get; set; }
 
- 
+
     }
 }

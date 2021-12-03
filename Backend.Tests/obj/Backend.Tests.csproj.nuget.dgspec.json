@@ -30,9 +30,6 @@
             "projectReferences": {
               "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\Backend\\Backend.csproj": {
                 "projectPath": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\Backend\\Backend.csproj"
-              },
-              "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\LandlordStudio.Recruitment.Backend\\Backend.csproj": {
-                "projectPath": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\LandlordStudio.Recruitment.Backend\\Backend.csproj"
               }
             }
           }
@@ -50,6 +47,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.0.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.16.1, )"
             },
             "NUnit": {
               "target": "Package",
@@ -99,73 +100,6 @@
         "projectPath": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\Michael.Braverman\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\Backend\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Michael.Braverman\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net5.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.AspNet.WebApi.Core": {
-              "target": "Package",
-              "version": "[5.2.7, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.1, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\LandlordStudio.Recruitment.Backend\\Backend.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\LandlordStudio.Recruitment.Backend\\Backend.csproj",
-        "projectName": "Backend",
-        "projectPath": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\LandlordStudio.Recruitment.Backend\\Backend.csproj",
-        "packagesPath": "C:\\Users\\Michael.Braverman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Michael.Braverman\\source\\repos\\Drawboard\\backend\\LandlordStudio.Recruitment.Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Michael.Braverman\\AppData\\Roaming\\NuGet\\NuGet.Config",

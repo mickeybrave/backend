@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace Backend.Controllers
 {
 
+
     [Route("api/[controller]")]
     [ApiController]
     public class PricesController : ControllerBase
@@ -49,16 +50,6 @@ namespace Backend.Controllers
 
 
 
-
-        //[HttpGet("Calculate")]
-        //public async Task<double> Calculate(string[] codes)
-        //{
-        //    return await _calculationService.GetAlPrices();
-        //}
-
-
-
-
         [HttpGet("{result}/GetResult")]
         public IActionResult GetResult(string result)
         {
@@ -69,11 +60,11 @@ namespace Backend.Controllers
         public IActionResult Error() => Problem();
 
 
-        [HttpPost]
-        public async Task<IActionResult> PostCalculateProduct([FromBody] string code)
+        [HttpPost("scan")]
+        public async Task<IActionResult> PostScanCalculateProduct([FromBody] ProductScan singleScan)
         {
 
-            var serviceResult = await _calculationService.CalculatePrice(code);
+            var serviceResult = await _calculationService.CalculatePrice(singleScan);
 
 
             switch (serviceResult.ComplexResult.ResultType)
@@ -92,13 +83,30 @@ namespace Backend.Controllers
             }
 
         }
+       
+        [HttpPost]
+        public async Task<IActionResult> PostCalculateProduct([FromBody] string codesSequence)
+        {
 
-        //[HttpPost]
-        //public async Task<IActionResult> PostCalculateProduct([FromBody] string[] code)
-        //{
-        //    return CreatedAtAction(nameof(GetPrice), code);
-        //}
+            var serviceResult = await _calculationService.CalculatePrice(codesSequence);
 
+
+            switch (serviceResult.ComplexResult.ResultType)
+            {
+                case ResultType.OK:
+                    return RedirectToAction("GetResult", new { result = serviceResult.Result });
+
+                case ResultType.BadRequest:
+                case ResultType.UnknownError:
+                    return BadRequest(serviceResult.ComplexResult.Message);
+                case ResultType.NotFound:
+                    return NotFound(serviceResult.ComplexResult.Message);
+                case ResultType.NoContent:
+                default:
+                    return NoContent();
+            }
+
+        }
 
 
         // PUT api/<PricesController>/5

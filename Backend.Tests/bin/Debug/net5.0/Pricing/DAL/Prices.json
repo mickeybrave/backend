@@ -1,29 +1,29 @@
 [
   {
     "productCode": "A",
-    "eachPrice": "1.25",
+    "amount": 1.25,
     "pack": {
-      "price": "3.00",
-      "count": "3"
+      "amount": 3.00,
+      "count": 3
     }
   },
   {
     "productCode": "B",
-    "eachPrice": "4.25",
+    "amount": 4.25,
     "pack": {
     }
   },
   {
     "productCode": "C",
-    "eachPrice": "1.00",
+    "amount": 1.00,
     "pack": {
-      "price": "5.00",
-      "count": "6"
+      "amount": 5.00,
+      "count": 6
     }
   },
   {
     "productCode": "D",
-    "eachPrice": "0.75",
+    "amount": 0.75,
     "pack": {
     }
   }

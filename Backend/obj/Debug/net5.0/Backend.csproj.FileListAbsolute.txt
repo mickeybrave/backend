@@ -52,4 +52,4 @@ C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend\obj\Debug\net5
 C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend\obj\Debug\net5.0\ref\Backend.dll
 C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend\obj\Debug\net5.0\Backend.pdb
 C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend\obj\Debug\net5.0\Backend.genruntimeconfig.cache
-C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend\obj\Debug\net5.0\Backend.csproj.CopyComplete
+C:\Users\Michael.Braverman\source\repos\Drawboard\backend\Backend\obj\Debug\net5.0\Backend.csproj.AssemblyReference.cache

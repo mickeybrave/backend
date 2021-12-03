@@ -4,7 +4,7 @@
     "amount": 1.25,
     "pack": {
       "amount": 3.00,
-      "count": "3"
+      "count": 3
     }
   },
   {
@@ -18,7 +18,7 @@
     "amount": 1.00,
     "pack": {
       "amount": 5.00,
-      "count": "6"
+      "count": 6
     }
   },
   {
