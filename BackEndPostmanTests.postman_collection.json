@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "327a8511-91af-424c-83a4-bfc43344c9c3",
+		"name": "BackEndPostmanTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Prices_calculate_sequence",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"ABCDABA\""
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Prices/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Prices",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backEndTestPrices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Prices/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Prices",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backEndTestPriceByParameter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Prices/A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Prices",
+						"A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prices_calculate_scan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"codesSingle\": \"A\",\"isNewScan\": true }"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Prices/scan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Prices",
+						"scan"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
