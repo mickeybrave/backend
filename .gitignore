@@ -69,3 +69,8 @@ Backend/obj/Debug/net5.0/Backend.dll
 Backend/obj/Debug/net5.0/Backend.pdb
 Backend/obj/Debug/net5.0/ref/Backend.dll
 .vs/BackEnd/v16/.suo
+.vs/BackEnd/DesignTimeBuild/.dtbcache.v2
+.vs/BackEnd/v16/.suo
+.vs/BackEnd/v16/TestStore/0/002.testlog
+.vs/BackEnd/v16/TestStore/0/testlog.manifest
+Backend.Tests/obj/Debug/net5.0/Backend.Tests.csproj.AssemblyReference.cache
