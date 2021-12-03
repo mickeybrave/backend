@@ -146,7 +146,6 @@ namespace Backend.Tests
             Assert.Contains("Product with code = X was found in the system", finalPriceResult.ComplexResult.Message);
         }
 
-        //[Fact()]
         [Theory]
         [InlineData("ABCDABA", 13.25)]
         [InlineData("CCCCCCC", 6)]
